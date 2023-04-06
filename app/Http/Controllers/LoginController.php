@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Empleado;
 use App\Models\Administrador;
 
+
 class LoginController extends Controller
 {
     //
@@ -56,18 +57,5 @@ class LoginController extends Controller
             session()->put('administrador', $administrador);
             return redirect()->route('administrador.index');
         }
-
-
-        /*
-        if($tipo == "empleado"){
-            return redirect()->route('empleadoi.index', ['usuario'=>$usuario]);
-        }else{
-            return redirect()->route('administrador.index', ['usuario'=>$usuario]);
-        }*/
-        //dd($request->username);
-        //return redirect()->route('administrador.index');
-
-        //dd($path,$empleado,$tipo);
-
     }
 }

@@ -1,8 +1,13 @@
-@extends('layouts.sidebar-admin')
-@section('contenido')
-<h2>Gestion de evaluaciones</h2>
 <?php use App\Models\User; ?>
+<?php use App\Models\Evaluacion; ?>
+@php
+    $layout = (auth()->user()->tipo == "administrador") ? 'layouts.sidebar-admin' : 'layouts.sidebar-empleado';
+@endphp
+@extends($layout)
+@section('contenido')
+<h3>Gestion de evaluaciones</h3>
 @auth
+@if (auth()->user()->tipo == "administrador")
     <div>
         <a class="btn btn-success mb-3" href="{{route('evaluacion.create')}}">Agregar evaluacion +</a>
     </div>
@@ -98,27 +103,45 @@
             @endforeach
         </tbody>
     </table>
+ @else
+    @if (Evaluacion::where('estado', 'activo')->count() > 0)
+        <hr />
+        <h4 class="text-center">Hay una evaluación disponible</h4>
+        <h5>Nombre examen:</h5>
+        <h5>Tiempo disponible:</h5>
+        <a id="btnRendir" href="{{ route('evaluacion.rendir',
+        ['id' => Evaluacion::where('estado', 'activo')->first()->idEvaluacion]) }}"
+        class="btn btn-success my-3">Rendir ahora -></a>
+        <hr />
+    @else
+        <h3>No hay</h3>
+    @endif
+ @endif
+
     @include('layouts.generaldialog')
     @yield('employee_delete')
 
     <script>
-        const list = document.getElementsByTagName("LI")[7];
-        list.className += "active";
-    </script>
-    <!--Javascript-->
-    <script>
-    var form = document.getElementById('idForm');
-    form.addEventListener('submit',function(event){
-      event.preventDefault()
-        if(confirm('¿Está seguro que desea eliminar esta evaluacion?')){
-            form.submit();
+        const tipo = '{{ auth()->user()->tipo }}';
+        if (tipo === "administrador") {
+            valor = 7;
+        } else {
+            valor = 5;
         }
-    });
-  </script>
-@endauth
-@guest
-    <h1>Homepage</h1>
-    <p class="lead">Your viewing the home page. Please login to view the restricted data.</p>
-@endguest
+        const list = document.getElementsByTagName("LI")[valor];
+        list.className += " active";
+        var form = document.getElementById('idForm');
+        form.addEventListener('submit',function(event){
+        event.preventDefault()
+            if(confirm('¿Está seguro que desea eliminar esta evaluacion?')){
+                form.submit();
+            }
+        });
+    </script>
+    @endauth
+    @guest
+        <h1>Homepage</h1>
+        <p class="lead">Your viewing the home page. Please login to view the restricted data.</p>
+    @endguest
 
-@endsection
+    @endsection

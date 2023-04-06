@@ -20,13 +20,10 @@ class CertificacionesController extends Controller
         if (!auth()->check()) {
             return redirect()->route('login');
         }
-
         // Obtener el ID del usuario actual
         $idUser = auth()->user()->idUser;
-
         // Filtrar las certificaciones según el idUser del usuario
         $certificaciones = Certificacion::where('idUser', $idUser)->get();
-
         return view('certificacion.index', compact('certificaciones'));
     }
 

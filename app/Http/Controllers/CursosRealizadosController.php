@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CursosRealizados;
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 
 class CursosRealizadosController extends Controller
@@ -13,6 +14,7 @@ class CursosRealizadosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $disk = "public";
     public function index()
     {
         // Chequear si el usuario está logueado
@@ -51,7 +53,6 @@ class CursosRealizadosController extends Controller
     {
         $rutaArchivo = null;
        // $request['idUser'] = $request->user['idUser'];
-        CursosRealizados::create($request->all());
         if($request->hasFile('archivo')){
             $archivo = $request->file('archivo');
             $rutaArchivo = Storage::disk($this->disk)->putFileAs('curso', $archivo, $archivo->getClientOriginalName());
@@ -77,7 +78,6 @@ class CursosRealizadosController extends Controller
     public function show(CursosRealizados $curso)
     {
         return view('curso.show',compact('curso'));
-        //return view('curso.show',compact('curso'));
     }
 
     /**

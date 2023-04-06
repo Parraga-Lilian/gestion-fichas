@@ -87,4 +87,11 @@ class EvaluacionController extends Controller
         $evaluacion->delete();
         return redirect()->route('evaluacion.index');
     }
+
+    public function rendirEvaluacion($id)
+    {
+        $evaluacion = Evaluacion::findOrFail($id);
+        return view('evaluacion.rendir', compact('evaluacion'));
+    }
+
 }

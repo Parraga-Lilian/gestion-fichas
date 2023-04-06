@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('contenido')
     <h2>Modificación de certificacion</h2>
-    <form action="{{route('certificacion.update',$certificacion->idCertificaciones)}}" 
+    <form action="{{route('certificacion.update',$certificacion->idCertificaciones)}}"
         method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -41,7 +41,7 @@
             <p>Nombre de archivo actual: {{$certificacion->nombre}}</p>
         @endif
     </div>
-    
+
         <input class="btn btn-success mt-2 form-control" type="submit" value="Modificar"/>
         <a class="btn btn-warning mt-1 form-control" href="{{route('certificacion.index')}}">Regresar</a>
     </form>

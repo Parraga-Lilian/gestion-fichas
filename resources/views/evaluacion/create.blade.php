@@ -1,4 +1,7 @@
-@extends('layouts.sidebar-admin')
+@php
+    $layout = (auth()->user()->tipo == "administrador") ? 'layouts.sidebar-admin' : 'layouts.sidebar-empleado';
+@endphp
+@extends($layout)
 @section('contenido')
 <div class="container">
     <h1 class="my-4">Crear evaluacion</h1>
@@ -18,6 +21,7 @@
              <input id="evrespuesta" name="respuestas" type="hidden" value="1" />
              <input id="evnpreguntas" name="npreguntas" type="hidden" value="" />
              <input id="evmaximo" name="maximo" type="hidden" value="10" />
+             <label for="tiempo">Tiempo en minutos:</label><input id="evmaximo" name="tiempo" type="number" min="0" />
              <input id="evestado" name="estado" type="hidden" value="activo" />
              <!-- End -->
 

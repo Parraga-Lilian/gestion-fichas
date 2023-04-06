@@ -38,6 +38,7 @@ Route::post('/action-register', [RegisterController::class, 'register']); */
 //Route::get('certificaciones/{id}/descargar', 'ArchivoController@descargarArchivo')->name('descargar.archivo');
 Route::get('cursos/{id}/descargar', [ArchivoController::class, 'descargarCurso'])->name('descargar.archivo2');
 Route::get('certificaciones/{id}/descargar', [ArchivoController::class, 'descargarCertificacion'])->name('descargar.archivo');
+Route::get('evalrendir/{id}', [EvaluacionController::class, 'rendirEvaluacion'])->name('evaluacion.rendir');
 
 Route::resource('documento',DocumentoController::class)->names('documento');
 
@@ -67,7 +68,6 @@ Route::get('/empleadoiplantillas', [EmpleadoIController::class, 'mostrarPlantill
 Route::get('/empleadoiacerca', [EmpleadoIController::class, 'mostrarAcerca']);
 //Route::get('empleadoi', function(){return view('empleadoi.index');})->name('empleadoi');
 //Route::post('empleadoi', function(){return view('empleadoi.index');})->name('empleadoi');
-
 Route::get('/perfil',function(){
     return view('perfil');
 })->name('perfil');

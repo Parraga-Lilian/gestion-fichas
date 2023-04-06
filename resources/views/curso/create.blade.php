@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('contenido')
     <h2>Ingreso de cursos realizados</h2>
-    <form action="{{route('curso.store')}}" method="POST">
+    <form action="{{route('curso.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
     <!-- Get the idUser from the login variable in order to save the new course -->
     <input type="hidden" name="idUser" value="{{ auth()->user()->idUser }}">
@@ -19,7 +19,7 @@
     </div>
     <div>
         <label for="modalidad">Modalidad</label>
-        <select class="form-select" aria-label="Default select example" name="modalidad">
+        <select class="form-select form-control" aria-label="Default select example" name="modalidad">
             <option value="presencial" selected>Presencial</option>
             <option value="semipresencial">Semipresencial</option>
             <option value="online">Online</option>

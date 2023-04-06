@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('contenido')
     <h2>Modificación de curso</h2>
-    <form action="{{route('curso.update',$curso->idCursosRealizados)}}" 
+    <form action="{{route('curso.update',$curso->idCursosRealizados)}}"
         method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

@@ -16,7 +16,7 @@
         <p>lilian.parraga@utelvt.edu.ec</p>
     </fieldset>
     <script>
-        const list = document.getElementsByTagName("LI")[3];
-        list.className += "active";
+        const list = document.getElementsByTagName("LI")[6];
+        list.className += " active";
     </script>
 @endsection

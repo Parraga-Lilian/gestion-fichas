@@ -1,4 +1,7 @@
-@extends('layouts.sidebar-admin')
+@php
+    $layout = (auth()->user()->tipo == "administrador") ? 'layouts.sidebar-admin' : 'layouts.sidebar-empleado';
+@endphp
+@extends($layout)
 @section('contenido')
 <h2>Gestion de certificaciones</h2>
 @auth
@@ -57,7 +60,13 @@
     <p class="lead">Your viewing the home page. Please login to view the restricted data.</p>
 @endguest
 <script>
-const list = document.getElementsByTagName("LI")[6];
-list.className += "active";
+ const tipo = '{{ auth()->user()->tipo }}';
+        if (tipo === "administrador") {
+            valor = 6;
+        } else {
+            valor = 4;
+        }
+        const list = document.getElementsByTagName("LI")[valor];
+        list.className += " active";
 </script>
 @endsection

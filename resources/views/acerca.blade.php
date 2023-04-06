@@ -16,7 +16,13 @@
         <p>lilian.parraga@utelvt.edu.ec</p>
     </fieldset>
     <script>
-        const list = document.getElementsByTagName("LI")[8];
-        list.className += "active";
+        const tipo = '{{auth()->user()->tipo }}';
+        if (tipo === "administrador") {
+            valor = 8;
+        } else {
+            valor = 6;
+        }
+        const list = document.getElementsByTagName("LI")[valor];
+        list.className += " active";
     </script>
 @endsection
