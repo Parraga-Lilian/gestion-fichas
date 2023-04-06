@@ -1,125 +1,124 @@
 @extends('layouts.sidebar-admin')
 @section('contenido')
-<div class="container">
-    <h1 class="my-4">Agregar preguntas</h1>
-    <div id="preguntas-container">
-    <!-- Aquí se agregarán las preguntas -->
+<h2>Gestion de evaluaciones</h2>
+<?php use App\Models\User; ?>
+@auth
+    <div>
+        <a class="btn btn-success mb-3" href="{{route('evaluacion.create')}}">Agregar evaluacion +</a>
     </div>
+    <table class="table">
+        <thead>
+            <th>N°</th>
+            <th>USUARIO</th>
+            <th>PREGUNTAS</th>
+            <th>ALTERNATIVAS</th>
+            <th>RESPUESTAS</th>
+            <th>PUNTAJEOBTENIDO</th>
+            <th>MAXIMO</th>
+            <th>ESTADO</th>
+            <th>OPCIONES</th>
+        </thead>
+        <tbody>
+            @foreach ($evaluaciones as $evaluacion)
+                @if(User::find($evaluacion->idUser)->tipo == "administrador")
+                    <tr>
+                        <td>{{$evaluacion->idEvaluacion}}</td>
+                        <td>{{User::find($evaluacion->idUser)->username}}</td>
+                        <td>{{$evaluacion->alternativas}}</td>
+                        <td>{{$evaluacion->respuestas}}</td>
+                        <td>{{$evaluacion->npreguntas}}</td>
+                        <td>{{$evaluacion->puntajeobtenido}}</td>
+                        <td>{{$evaluacion->maximo}}</td>
+                        <td>{{$evaluacion->estado}}</td>
+                        <td class="btn-group">
+                            <a class="btn btn-primary" href="{{route('evaluacion.show', $evaluacion->idEvaluacion)}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                </svg>
+                            </a>
+                            <form id="idForm" action="{{route('evaluacion.destroy', $evaluacion->idEvaluacion)}}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endif
+            @endforeach
+        </tbody>
+    </table>
+    <hr/>
+    <h2>Evaluaciones tomadas</h2>
+    <hr/>
+    <table class="table">
+        <thead>
+            <th>N°</th>
+            <th>USUARIO</th>
+            <th>PREGUNTAS</th>
+            <th>ALTERNATIVAS</th>
+            <th>RESPUESTAS</th>
+            <th>PUNTAJEOBTENIDO</th>
+            <th>MAXIMO</th>
+            <th>ESTADO</th>
+            <th>OPCIONES</th>
+        </thead>
+        <tbody>
+            @foreach ($evaluaciones as $evaluacion)
+                @if(User::find($evaluacion->idUser)->tipo == "empleado"){
+                    <tr>
+                        <td>{{$evaluacion->idEvaluacion}}</td>
+                        <td>{{User::find($evaluacion->idUser)->username}}</td>
+                        <td>{{$evaluacion->npreguntas}}</td>
+                        <td>{{$evaluacion->alternativas}}</td>
+                        <td>{{$evaluacion->respuestas}}</td>
+                        <td>{{$evaluacion->puntajeobtenido}}</td>
+                        <td>{{$evaluacion->maximo}}</td>
+                        <td>{{$evaluacion->estado}}</td>
+                        <td class="btn-group">
+                            <a class="btn btn-primary" href="{{route('evaluacion.show', $evaluacion->idEvaluacion)}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                </svg>
+                            </a>
+                            <form id="idForm" action="{{route('evaluacion.destroy', $evaluacion->idEvaluacion)}}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @endif
+            @endforeach
+        </tbody>
+    </table>
+    @include('layouts.generaldialog')
+    @yield('employee_delete')
 
-    <button class="btn btn-primary my-3" onclick="agregarPregunta()">Agregar pregunta</button>
-    <button class="btn btn-success my-3" onclick="guardarPreguntas()">Guardar preguntas</button>
-</div>
-  <script src="tu-archivo-js.js"></script>
-<script>
-let n_pregunta = 1;
-function obtenerPreguntas() {
-  const preguntas = [];
-
-  // Obtener el contenedor donde se mostraron las preguntas y las respuestas
-  const contenedor = document.getElementById("preguntas-container");
-
-  // Obtener todas las preguntas
-  const preguntasDOM = contenedor.querySelectorAll(".pregunta");
-
-  // Recorrer cada pregunta y obtener la pregunta y las alternativas
-  preguntasDOM.forEach((preguntaDOM) => {
-    const preguntaInput = preguntaDOM.querySelector("input[type='text']");
-    const alternativasDOM = preguntaDOM.querySelectorAll(".card-body");
-
-    const alternativas = [];
-    // Recorrer cada alternativa y obtener la alternativa y si es correcta o no
-    alternativasDOM.forEach((alternativaDOM) => {
-      const alternativaInput = alternativaDOM.querySelector(
-        ".alternativa-input"
-      );
-      const esCorrectaRadio = alternativaDOM.querySelector(
-        "option"
-      );
-      console.log(alternativaDOM);
-      const alternativa = {
-        texto: alternativaDOM.value,
-        esCorrecta: esCorrectaRadio.checked,
-      };
-
-      alternativas.push(alternativa);
+    <script>
+        const list = document.getElementsByTagName("LI")[7];
+        list.className += "active";
+    </script>
+    <!--Javascript-->
+    <script>
+    var form = document.getElementById('idForm');
+    form.addEventListener('submit',function(event){
+      event.preventDefault()
+        if(confirm('¿Está seguro que desea eliminar esta evaluacion?')){
+            form.submit();
+        }
     });
+  </script>
+@endauth
+@guest
+    <h1>Homepage</h1>
+    <p class="lead">Your viewing the home page. Please login to view the restricted data.</p>
+@endguest
 
-    const respuestaCorrectaSelect = preguntaDOM.querySelector("select");
-
-    const pregunta = {
-      texto: preguntaInput.value,
-      alternativas: alternativas,
-      respuestaCorrecta: respuestaCorrectaSelect.value,
-    };
-
-    preguntas.push(pregunta);
-  });
-
-  console.log(preguntas);
-}
-
-
-
-// Obtener las preguntas
-function guardarPreguntas() {
-  const preguntas = obtenerPreguntas();
-
-  // Convertir las preguntas a una cadena JSON
-  const preguntasJSON = JSON.stringify(preguntas);
-
-  // Almacenar la cadena JSON en una variable de cadena
-  const preguntasString = encodeURIComponent(preguntasJSON);
-
-  // Enviar la variable de cadena a una API o almacenarla en una base de datos
-  console.log(preguntasString);
-}
-
-function quitarPregunta(event) {
-  const pregunta = event.target.parentNode.parentNode;
-  pregunta.parentNode.removeChild(pregunta);
-}
-
-function agregarPregunta() {
-  const preguntasContainer = document.getElementById("preguntas-container");
-
-  // Crear el elemento de pregunta
-  const pregunta = document.createElement("div");
-  pregunta.classList.add("pregunta","card", "mt-3");
-
-  // Agregar los campos de pregunta, alternativas y respuesta
-  pregunta.innerHTML = `
-    <div class="card-body">
-      <h3 class="card-title">Pregunta ${n_pregunta}</h3>
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Escribe aquí la pregunta" />
-      </div>
-      <h3 class="card-title">Alternativas</h3>
-      <div class="form-group">
-        <input type="text" class="alternativa-input form-control mt-3" placeholder="Escribe aquí la alternativa 1" />
-        <input type="text" class="alternativa-input form-control mt-3" placeholder="Escribe aquí la alternativa 2" />
-        <input type="text" class="alternativa-input form-control mt-3" placeholder="Escribe aquí la alternativa 3" />
-        <input type="text" class="alternativa-input form-control mt-3" placeholder="Escribe aquí la alternativa 4" />
-      </div>
-      <h3 class="card-title">Respuesta correcta</h3>
-      <div class="form-group">
-        <select class="form-control">
-          <option value="1">Alternativa 1</option>
-          <option value="2">Alternativa 2</option>
-          <option value="3">Alternativa 3</option>
-          <option value="4">Alternativa 4</option>
-        </select>
-      </div>
-      <button class="btn btn-danger" onclick="quitarPregunta(event)">Quitar pregunta</button>
-    </div>
-  `;
-
-  // Agregar la pregunta al contenedor de preguntas
-  preguntasContainer.appendChild(pregunta);
-  n_pregunta++;
-}
-</script>
-<script>
-  const list = document.getElementsByTagName("LI")[7];
-  list.className += "active";
-</script>
 @endsection

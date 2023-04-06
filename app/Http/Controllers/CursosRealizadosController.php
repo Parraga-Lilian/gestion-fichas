@@ -19,16 +19,16 @@ class CursosRealizadosController extends Controller
         if (!auth()->check()) {
             return redirect()->route('login');
         }
-    
+
         // Obtener el ID del usuario actual
         $idUser = auth()->user()->idUser;
-    
+
         // Filtrar los cursos según el idUser del usuario
         $cursos = CursosRealizados::where('idUser', $idUser)->get();
-    
+
         return view('curso.index', compact('cursos'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -49,9 +49,23 @@ class CursosRealizadosController extends Controller
      */
     public function store(Request $request)
     {
+        $rutaArchivo = null;
        // $request['idUser'] = $request->user['idUser'];
         CursosRealizados::create($request->all());
-        return redirect()->route('curso.index');
+        if($request->hasFile('archivo')){
+            $archivo = $request->file('archivo');
+            $rutaArchivo = Storage::disk($this->disk)->putFileAs('curso', $archivo, $archivo->getClientOriginalName());
+        }
+        // Almacenamiento con Storage
+        if($rutaArchivo){
+            $request['archivo'] = $rutaArchivo;
+            $cursos = new CursosRealizados($request->all());
+            $cursos->archivo = $rutaArchivo;
+            $cursos->save();
+            return redirect()->route('curso.index');
+        } else {
+            return back()->with('error', 'No se pudo guardar el curso');
+        }
     }
 
     /**

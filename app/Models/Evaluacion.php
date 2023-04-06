@@ -9,6 +9,7 @@ class Evaluacion extends Model
 {
     use HasFactory;
     protected $table = 'Evaluacion';
+    public $timestamps = false;
     protected $primaryKey = 'idEvaluacion';
     protected $fillable = ['idEvaluacion','idUser','preguntas',
     'alternativas','respuestas','npreguntas','puntajeobtenido','maximo','estado'];

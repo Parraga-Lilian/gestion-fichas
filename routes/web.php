@@ -25,7 +25,7 @@ use App\Http\Controllers\CursosRealizadosController;
 |
 */
 
-//Empleado propio 
+//Empleado propio
 Route::get('/', [HomeController::class,'index']);
 
 /* Route::get('/register', [RegisterController::class, 'show']);
@@ -36,9 +36,8 @@ Route::post('/action-register', [RegisterController::class, 'register']); */
 
 //Route::post('/preguntas', [PreguntaController::class, 'store'])->name('preguntas.store');
 //Route::get('certificaciones/{id}/descargar', 'ArchivoController@descargarArchivo')->name('descargar.archivo');
-Route::get('cursos/{id}/descargar', [ArchivoController::class, 'descargarCurso'])->name('descargar.archivo');
+Route::get('cursos/{id}/descargar', [ArchivoController::class, 'descargarCurso'])->name('descargar.archivo2');
 Route::get('certificaciones/{id}/descargar', [ArchivoController::class, 'descargarCertificacion'])->name('descargar.archivo');
-
 
 Route::resource('documento',DocumentoController::class)->names('documento');
 
@@ -78,7 +77,7 @@ Route::resource('user', UserController::class)->names('user');
 Route::resource('empleadoi', EmpleadoIController::class)->names('empleadoi');
 
 Route::group(['namespace' => 'App\Http\Controllers'], function()
-{   
+{
     /**
      * Home Routes
      */

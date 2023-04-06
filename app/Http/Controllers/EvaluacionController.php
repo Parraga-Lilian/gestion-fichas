@@ -14,8 +14,8 @@ class EvaluacionController extends Controller
      */
     public function index()
     {
-        $evaluacion = Evaluacion::all();
-        return view('evaluacion.index', compact('evaluacion'));
+        $evaluaciones = Evaluacion::all();
+        return view('evaluacion.index', compact('evaluaciones'));
     }
 
     /**
@@ -25,8 +25,8 @@ class EvaluacionController extends Controller
      */
     public function create()
     {
-        $evaluacion = Evaluacion::create($request->all());
-        return redirect()->route('evaluacion.index');
+        $evaluacion = Evaluacion::all();
+        return view('evaluacion.create', compact('evaluacion'));
     }
 
     /**
