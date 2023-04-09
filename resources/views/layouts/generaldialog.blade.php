@@ -1,7 +1,7 @@
 @section('failDelete')
     @if (session()->has('failedAdminDeleting'))
         <!-- Button trigger modal -->
-        <div class="modal fade show" id="failedDeleting" tabindex="-1" role="dialog" 
+        <div class="modal fade show" id="failedDeleting" tabindex="-1" role="dialog"
         data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="slide-out-right"
         aria-labelledby="exampleModalCenterTitle" style="display: block;">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -28,7 +28,7 @@
 @section('okDelete')
     @if (session()->has('successDeleting'))
         <!-- Button trigger modal -->
-        <div class="modal fade show" id="successDeleting" tabindex="-1" role="dialog" 
+        <div class="modal fade show" id="successDeleting" tabindex="-1" role="dialog"
         data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="slide-out-right"
         aria-labelledby="successDeletingTitle" style="display: block;">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -55,7 +55,7 @@
 @section('okEmployeeEdit')
     @if (session()->has('successEdit'))
         <!-- Button trigger modal -->
-        <div class="modal fade show" id="successEdit" tabindex="-1" role="dialog" 
+        <div class="modal fade show" id="successEdit" tabindex="-1" role="dialog"
         data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="slide-out-right"
         aria-labelledby="successEditTitle" style="display: block;">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -82,7 +82,7 @@
 @section('okBusinessEdit')
     @if (session()->has('successEdit'))
         <!-- Button trigger modal -->
-        <div class="modal fade show" id="successEdit" tabindex="-1" role="dialog" 
+        <div class="modal fade show" id="successEdit" tabindex="-1" role="dialog"
         data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="slide-out-right"
         aria-labelledby="successEditTitle" style="display: block;">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -109,7 +109,7 @@
 @section('employee_delete')
     @if (session()->has('success_employee_delete'))
         <!-- Button trigger modal -->
-        <div class="modal fade show" id="success_employee_delete" tabindex="-1" role="dialog" 
+        <div class="modal fade show" id="success_employee_delete" tabindex="-1" role="dialog"
         data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="slide-out-right"
         aria-labelledby="success_employee_deleteTitle" style="display: block;">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -133,18 +133,25 @@
     @endif
 @endsection
 
+@section('evaluacion_rendir')
+    @if (session()->has('success_evaluacion'))
+        <!-- Button trigger modal -->
+       
+    @endif
+@endsection
+
 @section('okEmployeeEdit')
     <!-- Success dialog -->
     @if (session()->has('successEdit'))
     <!-- Button trigger modal -->
-    <div class="modal fade show" id="successEdit" tabindex="-1" role="dialog" 
+    <div class="modal fade show" id="successEdit" tabindex="-1" role="dialog"
     data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="fly-in-up"
     aria-labelledby="successEdit" style="display: block;">
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">¡Mensaje!</h5>
-            <button type="button" class="close" data-dismiss="modal" 
+            <button type="button" class="close" data-dismiss="modal"
             onclick="javascript:document.getElementById('successEdit').style.display='none'" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
@@ -153,7 +160,7 @@
             Empleado modificado correctamente.
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" 
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
             onclick="javascript:document.getElementById('successEdit').style.display='none'">Aceptar</button>
             <!--<button type="button" class="btn btn-primary">Save changes</button>-->
             </div>

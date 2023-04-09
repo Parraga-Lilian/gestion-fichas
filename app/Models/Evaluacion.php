@@ -11,6 +11,8 @@ class Evaluacion extends Model
     protected $table = 'Evaluacion';
     public $timestamps = false;
     protected $primaryKey = 'idEvaluacion';
-    protected $fillable = ['idEvaluacion','idUser','preguntas',
+    protected $fillable = ['idEvaluacion','idUser','codigo','nombre','descripcion','preguntas',
     'alternativas','respuestas','npreguntas','puntajeobtenido','maximo','tiempo','estado'];
+
+
 }

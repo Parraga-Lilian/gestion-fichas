@@ -4,33 +4,43 @@
 @extends($layout)
 @section('contenido')
 <div class="container">
-    <h1 class="my-4">Crear evaluacion</h1>
-    <div id="preguntas-container">
-    <!-- Aquí se agregarán las preguntas -->
-    </div>
-    <button class="btn btn-primary my-3" onclick="agregarPregunta()">Agregar pregunta</button>
+    <h2 class="my-4">Crear evaluacion</h2>
     <div>
         <form action="{{route('evaluacion.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- Get the idUser from the login variable in order to save the new course -->
             <input type="hidden" name="idUser" value="{{ auth()->user()->idUser }}">
+            <label for="codigo">Codigo:</label>
+            <input type="text" id="codigo" style="border-radius:5px;width:40%;" class="form-control" name="codigo"
+            placeholder="Nombre o descripcion del examen" readonly />
 
+            <label for="nombre">Nombre de la evaluacion:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required />
+
+            <label for="descripcion">Descripción de la evaluacion:</label>
+            <input type="text" class="form-control" id="descripcion" name="descripcion" required />
+
+            <label for="tiempo">Tiempo en minutos:</label>
+            <input id="tiempo" style="border-radius:5px;width:20%;" class="form-control" name="tiempo"
+            type="number" value="1" min="0" required />
              <!--Enviar información-->
              <input id="evpreguntas" name="preguntas" type="hidden" value="" />
              <input id="evalternativas" name="alternativas" type="hidden" value="4" />
              <input id="evrespuesta" name="respuestas" type="hidden" value="1" />
              <input id="evnpreguntas" name="npreguntas" type="hidden" value="" />
              <input id="evmaximo" name="maximo" type="hidden" value="10" />
-             <label for="tiempo">Tiempo en minutos:</label><input id="evmaximo" name="tiempo" type="number" min="0" />
              <input id="evestado" name="estado" type="hidden" value="activo" />
              <!-- End -->
-
-            <input id="btnvalidarpregunta" class="btn btn-success my-3" type="button" onclick="validarPreguntas()" value="Validar Preguntas" />
-            <input id="btnguardarpregunta" class="btn btn-success my-3"
+            <input id="btnvalidarpregunta" class="btn btn-success my-3" type="button"
+            onclick="validarPreguntas()" value="Validar Preguntas" />
+            <input id="btnguardarpregunta" style="display:none;" class="btn btn-success my-3"
             type="submit" value="Guardar Preguntas" />
-
         </form>
     </div>
+    <div id="preguntas-container">
+    <!-- Aquí se agregarán las preguntas -->
+    </div>
+    <button class="btn btn-primary my-3" onclick="agregarPregunta()">Agregar pregunta</button>
 </div>
 <script src="tu-archivo-js.js"></script>
 <script>
@@ -69,28 +79,29 @@ function obtenerPreguntas() {
   return preguntas;
 }
 
-// Obtener las preguntas
-function guardarPreguntas() {
+function validarPreguntas() {
+  const preguntas = obtenerPreguntas();
+  // Convertir las preguntas a una cadena JSON
+  const preguntasJSON = JSON.stringify(preguntas);
+  const nombres = document.getElementById('nombre');
+  const descripcion = document.getElementById('descripcion');
+  const tiempo = document.getElementById('tiempo');
+  //console.log(preguntasJSON.preg);
+  if (preguntasJSON === "[]" || nombres.value === ""
+  || descripcion.value === "" || tiempo.value <= 0)  {
+    // Si la variable preguntasJSON está vacía, mostrar un alert
+    alert("Falta información por llenar");
+  } else {
+    // Si la variable preguntasJSON no está vacía, habilitar el botón btnGuardar
+    const btnGuardar = document.getElementById("btnguardarpregunta");
+    btnGuardar.style.display = "block";
 
+    // Asignar la cadena JSON a un campo oculto en el formulario
+    document.getElementById("evpreguntas").value = preguntasJSON;
+    document.getElementById("evnpreguntas").value = preguntas.length;
+  }
 }
 
-function validarPreguntas(){
-    const preguntas = obtenerPreguntas();
-    // Convertir las preguntas a una cadena JSON
-    const preguntasJSON = JSON.stringify(preguntas);
-    // Almacenar la cadena JSON en una variable de cadena
-    const preguntasString = encodeURIComponent(preguntasJSON);
-    // Enviar la variable de cadena a una API o almacenarla en una base de datos
-    document.getElementById('guardar')
-    document.getElementById('evpreguntas').value = preguntasJSON;
-    //document.getElementById('evalternativas').value = 4;
-    //document.getElementById('evrespuesta').value = 1;
-    document.getElementById('evnpreguntas').value = preguntas.length;
-    //document.getElementById('evmaximo').value = 10;
-    //document.getElementById('evestado').value = 1;
-    const contenedor = document.getElementById("btnguardarpregunta");
-    contenedor.disabled = false;
-}
 
 function quitarPregunta(event) {
   const pregunta = event.target.parentNode.parentNode;
@@ -140,5 +151,18 @@ function agregarPregunta() {
 <script>
   const list = document.getElementsByTagName("LI")[7];
   list.className += "active";
+  const codigo = document.getElementById('codigo');
+  codigo.value = generarCadenaAlfanumerica();
+
+  function generarCadenaAlfanumerica() {
+    const caracteres = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let cadena = '';
+    for (let i = 0; i < 10; i++) {
+        const indice = Math.floor(Math.random() * caracteres.length);
+        cadena += caracteres[indice];
+    }
+    return cadena;
+  }
+
 </script>
 @endsection

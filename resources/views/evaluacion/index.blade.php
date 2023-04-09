@@ -56,7 +56,7 @@
         </tbody>
     </table>
     <hr/>
-    <h2>Evaluaciones tomadas</h2>
+    <h2>Evaluaciones rendidas</h2>
     <hr/>
     <table class="table">
         <thead>
@@ -104,18 +104,48 @@
         </tbody>
     </table>
  @else
-    @if (Evaluacion::where('estado', 'activo')->count() > 0)
-        <hr />
-        <h4 class="text-center">Hay una evaluación disponible</h4>
-        <h5>Nombre examen:</h5>
-        <h5>Tiempo disponible:</h5>
-        <a id="btnRendir" href="{{ route('evaluacion.rendir',
-        ['id' => Evaluacion::where('estado', 'activo')->first()->idEvaluacion]) }}"
-        class="btn btn-success my-3">Rendir ahora -></a>
-        <hr />
+    @php
+        $evaluacionesAll = Evaluacion::where('estado','rendido')->where('estado','activo');
+        $evaluacionesRendidas = Evaluacion::where([['estado','=' ,'rendido'],
+        ['idUser','=',auth()->user()->idUser]])->get();
+        $evaluacionesActivas = Evaluacion::where([
+            ['estado', '=', 'activo']])->get();
+    @endphp
+
+    @if ($evaluacionesRendidas->count() > 0)
+        @foreach ($evaluacionesRendidas as $evaluacion)
+            <hr />
+            <h4 class="text-center">Has rendido la siguiente evaluación:</h4>
+            <h5><b>Nombre examen:</b> {{ $evaluacion->nombre }}</h5>
+            <h5><b>Descripción:</b> {{ $evaluacion->descripcion }}</h5>
+            <h5><b>Tiempo disponible:</b> {{ $evaluacion->tiempo }} minutos</h5>
+            <!--Determinar si se ha rendido -->
+            <a id="btnRendir" href="#" class="btn btn-success my-3">
+            Rendida: ver puntaje. <i class="fas fa-check"></i>
+            </a>
+        @endforeach
     @else
-        <h3>No hay</h3>
+        <h3>No hay evaluaciones activas</h3>
     @endif
+
+    @if ($evaluacionesActivas->count() > 0)
+        @foreach ($evaluacionesActivas as $evaluacion)
+            @if (Evaluacion::where([
+                ['estado', '=', 'activo'],['codigo', '<>', $evaluacion->codigo]])->count() > 0)
+                <hr />
+                <h4 class="text-center">Hay una evaluación disponible</h4>
+                <h5><b>Nombre examen:</b> {{ $evaluacion->nombre }}</h5>
+                <h5><b>Descripción:</b> {{ $evaluacion->descripcion }}</h5>
+                <h5><b>Tiempo disponible:</b> {{ $evaluacion->tiempo }} minutos</h5>
+                <!--Determinar si se ha rendido -->
+                <a id="btnRendir" href="{{ route('evaluacion.rendir', ['id' => $evaluacion->idEvaluacion]) }}"
+                    class="btn btn-warning my-3">Rendir ahora -></a>
+            @endif
+        @endforeach
+    @else
+        <h3>No hay evaluaciones rendidas</h3>
+    @endif
+
  @endif
 
     @include('layouts.generaldialog')

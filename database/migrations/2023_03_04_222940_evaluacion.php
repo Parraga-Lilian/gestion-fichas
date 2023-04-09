@@ -17,12 +17,16 @@ return new class extends Migration
             $table->increments('idEvaluacion');
             $table->unsignedBigInteger('idUser')->nullable();
             $table->foreign('idUser')->references('idUser')->on('users');
+            $table->string('codigo')->nullable();
+            $table->string('nombre')->nullable();
+            $table->string('descripcion')->nullable();
             $table->string('preguntas')->nullable();
             $table->string('alternativas')->nullable();
             $table->string('respuestas')->nullable();
             $table->integer('npreguntas')->nullable();
             $table->double('puntajeobtenido')->nullable();
             $table->double('maximo')->nullable();
+            $table->int('tiempo')->nullable(); //en minutos
             $table->string('estado')->nullable();
             $table->index('idUser');
         });
