@@ -7,12 +7,15 @@
     <h2 class="text-center">Evaluacion</h2>
     <form action="{{route('evaluacion.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" class="form-control" id="nusuario" name="nusuario" value="{{auth()->user()->username}}" />
         <div>
             <label style="display: inline-block;">Cod Evaluacion:</label>
             <input type="text" name="codigo" readonly class="form-control" style="display: inline-block; width: 70%;" value="{{ $evaluacion->codigo }}">
         </div>
-        <label for="nombre">Nombre de la evaluacion:</label>
-        <input type="text" class="form-control" id="nombre" name="nombre" value="{{$evaluacion->nombre}}" />
+        <label style="display: inline-block;">Nombre de la evaluación:</label>
+        <input type="text" style="display: inline-block; width: 70%;"
+        class="form-control" id="nombre" name="nombre" value="{{$evaluacion->nombre}}" readonly />
+
 
         <input type="hidden" id="descripcion" name="descripcion"  value="{{$evaluacion->descripcion }}" />
 
@@ -175,7 +178,7 @@
             dialog.style.display = "block";
             //****
 
-            txtModal.textContent = `Puntuacion total = ${puntajeTotal}/10`;
+            txtModal.textContent = `Puntuacion total = ${puntajeTotal}/${preguntasDOM.length}`;
             puntaje.value = puntajeTotal;
             estado.value = "rendido";
             //console.log(puntaje.value);

@@ -78,7 +78,7 @@ body {
                     No has ingresado. <a href="/logout">Login</a>
                 @else
                     <i>{{ auth()->user()->name ?? auth()->user()->email  }}</i>
-                @endif  
+                @endif
             </div>
 
             <ul class="list-unstyled components">
@@ -89,7 +89,7 @@ body {
                     </a>
                 </li>
                 <li>
-                    
+
                     <a href="{{route('documentos.plantillas')}}">
                         <i class="fas fa-copy"></i> Plantillas</a>
                 </li>
@@ -127,6 +127,12 @@ body {
                     <a href="/evaluacion">
                         <i class="fas fa-chart-bar"></i>
                         Evaluaciones
+                    </a>
+                </li>
+                <li>
+                    <a href="/estadisticas">
+                        <i class="fas fa-chart-pie"></i>
+                        Estadísticas
                     </a>
                 </li>
                 <li>

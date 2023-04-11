@@ -46,9 +46,8 @@ class User extends Authenticatable
 
     public function setPasswordAttribute(string $password){
         $this->attributes['password'] = bcrypt($password);
-
     }
-    
+
     public function users()
     {
         return $this->belongsTo(User::class, 'idUser');

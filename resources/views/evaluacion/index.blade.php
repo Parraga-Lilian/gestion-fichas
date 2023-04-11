@@ -5,21 +5,21 @@
 @endphp
 @extends($layout)
 @section('contenido')
-<h3>Gestion de evaluaciones</h3>
+<h4 class="text-center">Gestion de evaluaciones</h4>
 @auth
 @if (auth()->user()->tipo == "administrador")
     <div>
         <a class="btn btn-success mb-3" href="{{route('evaluacion.create')}}">Agregar evaluacion +</a>
     </div>
+    <hr/>
+    <h4>Evaluaciones creadas</h4>
+    <hr/>
     <table class="table">
         <thead>
             <th>N°</th>
             <th>USUARIO</th>
-            <th>PREGUNTAS</th>
-            <th>ALTERNATIVAS</th>
-            <th>RESPUESTAS</th>
-            <th>PUNTAJEOBTENIDO</th>
-            <th>MAXIMO</th>
+            <th>TOTAL PREGUNTAS</th>
+            <th>MAXIMO PUNTAJE</th>
             <th>ESTADO</th>
             <th>OPCIONES</th>
         </thead>
@@ -29,10 +29,7 @@
                     <tr>
                         <td>{{$evaluacion->idEvaluacion}}</td>
                         <td>{{User::find($evaluacion->idUser)->username}}</td>
-                        <td>{{$evaluacion->alternativas}}</td>
-                        <td>{{$evaluacion->respuestas}}</td>
                         <td>{{$evaluacion->npreguntas}}</td>
-                        <td>{{$evaluacion->puntajeobtenido}}</td>
                         <td>{{$evaluacion->maximo}}</td>
                         <td>{{$evaluacion->estado}}</td>
                         <td class="btn-group">
@@ -56,15 +53,12 @@
         </tbody>
     </table>
     <hr/>
-    <h2>Evaluaciones rendidas</h2>
+    <h4>Evaluaciones rendidas</h4>
     <hr/>
     <table class="table">
         <thead>
             <th>N°</th>
             <th>USUARIO</th>
-            <th>PREGUNTAS</th>
-            <th>ALTERNATIVAS</th>
-            <th>RESPUESTAS</th>
             <th>PUNTAJEOBTENIDO</th>
             <th>MAXIMO</th>
             <th>ESTADO</th>
@@ -72,13 +66,10 @@
         </thead>
         <tbody>
             @foreach ($evaluaciones as $evaluacion)
-                @if(User::find($evaluacion->idUser)->tipo == "empleado"){
+                @if(User::find($evaluacion->idUser)->tipo == "empleado")
                     <tr>
                         <td>{{$evaluacion->idEvaluacion}}</td>
                         <td>{{User::find($evaluacion->idUser)->username}}</td>
-                        <td>{{$evaluacion->npreguntas}}</td>
-                        <td>{{$evaluacion->alternativas}}</td>
-                        <td>{{$evaluacion->respuestas}}</td>
                         <td>{{$evaluacion->puntajeobtenido}}</td>
                         <td>{{$evaluacion->maximo}}</td>
                         <td>{{$evaluacion->estado}}</td>
@@ -98,7 +89,7 @@
                             </form>
                         </td>
                     </tr>
-                }
+
                 @endif
             @endforeach
         </tbody>
@@ -109,41 +100,46 @@
         $evaluacionesRendidas = Evaluacion::where([['estado','=' ,'rendido'],
         ['idUser','=',auth()->user()->idUser]])->get();
         $evaluacionesActivas = Evaluacion::where([
-            ['estado', '=', 'activo']])->get();
+            ['estado', '=', 'activo']])->get(); //el codigo de la ev 'activa' no puede estar en las rendidas.
+        $evaluacionesNoRendidas = [];
+        foreach($evaluacionesActivas as $activa){
+            if(Evaluacion::where([['estado','=' ,'rendido'],
+            ['idUser','=',auth()->user()->idUser],['codigo',$activa->codigo]])->count() == 0){
+                $evaluacionesNoRendidas[] = $activa;
+            }
+        }
     @endphp
 
     @if ($evaluacionesRendidas->count() > 0)
+        <h4 class="text-center">Has rendido las siguientes evaluaciones:</h4>
         @foreach ($evaluacionesRendidas as $evaluacion)
             <hr />
-            <h4 class="text-center">Has rendido la siguiente evaluación:</h4>
             <h5><b>Nombre examen:</b> {{ $evaluacion->nombre }}</h5>
             <h5><b>Descripción:</b> {{ $evaluacion->descripcion }}</h5>
             <h5><b>Tiempo disponible:</b> {{ $evaluacion->tiempo }} minutos</h5>
+            <h5><b>Puntuación:</b> {{ $evaluacion->puntajeobtenido }}/{{$evaluacion->maximo}}</h5>
             <!--Determinar si se ha rendido -->
             <a id="btnRendir" href="#" class="btn btn-success my-3">
-            Rendida: ver puntaje. <i class="fas fa-check"></i>
+            Rendida <i class="fas fa-check"></i>
             </a>
         @endforeach
     @else
-        <h3>No hay evaluaciones activas</h3>
+        <h3>No hay evaluaciones rendidas</h3>
     @endif
 
-    @if ($evaluacionesActivas->count() > 0)
-        @foreach ($evaluacionesActivas as $evaluacion)
-            @if (Evaluacion::where([
-                ['estado', '=', 'activo'],['codigo', '<>', $evaluacion->codigo]])->count() > 0)
+    @if (count($evaluacionesNoRendidas) > 0)
+        @foreach ($evaluacionesNoRendidas as $evaluacion)
                 <hr />
-                <h4 class="text-center">Hay una evaluación disponible</h4>
+                <h4 class="text-center">Hay evaluacion/es disponible</h4>
                 <h5><b>Nombre examen:</b> {{ $evaluacion->nombre }}</h5>
                 <h5><b>Descripción:</b> {{ $evaluacion->descripcion }}</h5>
                 <h5><b>Tiempo disponible:</b> {{ $evaluacion->tiempo }} minutos</h5>
                 <!--Determinar si se ha rendido -->
                 <a id="btnRendir" href="{{ route('evaluacion.rendir', ['id' => $evaluacion->idEvaluacion]) }}"
                     class="btn btn-warning my-3">Rendir ahora -></a>
-            @endif
         @endforeach
     @else
-        <h3>No hay evaluaciones rendidas</h3>
+        <h3>No hay evaluaciones disponibles</h3>
     @endif
 
  @endif
@@ -161,12 +157,15 @@
         const list = document.getElementsByTagName("LI")[valor];
         list.className += " active";
         var form = document.getElementById('idForm');
-        form.addEventListener('submit',function(event){
-        event.preventDefault()
-            if(confirm('¿Está seguro que desea eliminar esta evaluacion?')){
-                form.submit();
-            }
-        });
+        if(form != null){
+            form.addEventListener('submit',function(event){
+            event.preventDefault()
+                if(confirm('¿Está seguro que desea eliminar esta evaluacion?')){
+                    form.submit();
+                }
+            });
+        }
+
     </script>
     @endauth
     @guest

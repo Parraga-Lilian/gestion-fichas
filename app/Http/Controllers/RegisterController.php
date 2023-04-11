@@ -16,23 +16,26 @@ class RegisterController extends Controller
         if(Auth::check()){
             return redirect()->route('home.index');
         }
-        //$admins = Administrador::all();
-        //return view('auth.register',compact('$admins'));
         return view('auth.register');
     }
 
     public function register(RegisterRequest $request){
-        
-        /*$solicitud = $request;
-        return redirect('/home',compact('solicitud'))->with('success', "La cuenta fue creada correctamente.");*/
-        
-        //$solicitud = $request;
-        //Check for duplicate values.
-        $checkDuplicate = User::where(['name'=>$request->name,
-        'username'=>$request->username,
-        'email'=>$request->email])->first();
+        $checkDuplicate = User::where('name', $request->name)
+        ->orWhere('username', $request->username)
+        ->orWhere('email', $request->email)
+        ->first();
+        $checkCedulaEmpleado = Empleado::where('cedula', $request->cedula)->first();
+        $checkCedulaAdmin = Administrador::where('cedula', $request->cedula)->first();
+        if ($checkCedulaEmpleado) {
+            return redirect('/register')->withErrors('La cédula ya está en uso');
+        }
+
+        if ($checkCedulaAdmin) {
+            return redirect('/register')->withErrors('La cédula ya está en uso');
+        }
+
         if($checkDuplicate){
-            return redirect('/register')->withErrors('Correo o nombre de usuario ya está en uso');
+            return redirect('/register')->withErrors('Correo, nombre de usuario o email ya está en uso');
             //return response()->json($checkDuplicate);
         }else{
             $user = User::create($request->validated());
@@ -40,7 +43,7 @@ class RegisterController extends Controller
                 if($user->tipo == "empleado"){
                     $empleado = new Empleado();
                     $empleado->idUser = $user->idUser;
-                    $empleado->cedula = "0999999999";
+                    $empleado->cedula = $request->cedula;
                     $empleado->nombres = "(Vacio)";
                     $empleado->apellidos = "(Vacio)";
                     $empleado->direccion = "(Vacio)";
@@ -53,7 +56,7 @@ class RegisterController extends Controller
                 } else {
                     $administrador = new Administrador();
                     $administrador->idUser = $user->idUser;
-                    $administrador->cedula = "0999999999";
+                    $administrador->cedula = $request->cedula;
                     $administrador->nombres = "(Vacio)";
                     $administrador->apellidos = "(Vacio)";
                     $administrador->direccion = "(Vacio)";
@@ -62,21 +65,26 @@ class RegisterController extends Controller
                     $administrador->save();
                 }
                 return redirect('/login')->with('success', "La cuenta fue creada correctamente.");
-            } catch (\Exception $e) {
-                return redirect('/login')->with('error', "Ha ocurrido un error al crear la cuenta. Por favor, inténtelo de nuevo más tarde.");
+            } catch (QueryException $e) {
+                $errorCode = $e->errorInfo[1];
+                if ($errorCode == 1062) { // Duplicate entry error code
+                    $duplicateUser = User::where('email', $request->email)
+                    ->orWhere('username', $request->username)->first();
+                    $errorFields = [];
+                    foreach ($duplicateUser->toArray() as $field => $value) {
+                        if ($value === $request->$field) {
+                            $errorFields[$field] = 'Este valor ya está en uso.';
+                        }
+                    }
+                    return redirect('/register')
+                        ->withErrors($errorFields)
+                        ->withInput($request->except('password', 'password_confirmation'));
+                } else {
+                    return redirect('/register')
+                        ->withErrors(['error' => 'Ha ocurrido un error al crear la cuenta. Por favor, inténtelo de nuevo más tarde.'])
+                        ->withInput($request->except('password', 'password_confirmation'));
+                }
             }
-            
-        //return response()->json(['respuesta'=>'bien']);
         }
-        //Return to other part.       
-        /*
-        $user = new User;
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->setPassword($request->password);
-        $user->save();
-        return redirect('/asdasd')->with('success', "Account successfully registered."); */
-
     }
 }

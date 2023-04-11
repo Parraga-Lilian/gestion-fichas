@@ -10,6 +10,8 @@
             @csrf
             <!-- Get the idUser from the login variable in order to save the new course -->
             <input type="hidden" name="idUser" value="{{ auth()->user()->idUser }}">
+            <input type="hidden" class="form-control" id="nusuario" name="nusuario"
+            value="{{auth()->user()->username}}" />
             <label for="codigo">Codigo:</label>
             <input type="text" id="codigo" style="border-radius:5px;width:40%;" class="form-control" name="codigo"
             placeholder="Nombre o descripcion del examen" readonly />
@@ -40,12 +42,10 @@
     <div id="preguntas-container">
     <!-- Aquí se agregarán las preguntas -->
     </div>
-    <button class="btn btn-primary my-3" onclick="agregarPregunta()">Agregar pregunta</button>
+    <button class="btn btn-primary my-3" onclick="agregarPregunta()">Agregar pregunta +</button>
 </div>
-<script src="tu-archivo-js.js"></script>
 <script>
 let n_pregunta = 1;
-contenedor.disabled = true;
 function obtenerPreguntas() {
   const preguntas = [];
   const contenedor = document.getElementById("preguntas-container");
@@ -87,6 +87,13 @@ function validarPreguntas() {
   const descripcion = document.getElementById('descripcion');
   const tiempo = document.getElementById('tiempo');
   //console.log(preguntasJSON.preg);
+  if (!preguntas.some(p => p.preg.trim() !== "")) {
+    // Mostrar un alert y salir de la función
+    alert("Debe agregar al menos una pregunta");
+    return;
+  }
+
+
   if (preguntasJSON === "[]" || nombres.value === ""
   || descripcion.value === "" || tiempo.value <= 0)  {
     // Si la variable preguntasJSON está vacía, mostrar un alert
@@ -99,6 +106,7 @@ function validarPreguntas() {
     // Asignar la cadena JSON a un campo oculto en el formulario
     document.getElementById("evpreguntas").value = preguntasJSON;
     document.getElementById("evnpreguntas").value = preguntas.length;
+    document.getElementById("evmaximo").value = preguntas.length;
   }
 }
 
@@ -138,7 +146,7 @@ function agregarPregunta() {
           <option value="4">Alternativa 4</option>
         </select>
       </div>
-      <button class="btn btn-danger" onclick="quitarPregunta(event)">Quitar pregunta</button>
+      <button class="btn btn-danger" onclick="quitarPregunta(event)">Quitar pregunta -</button>
     </div>
   `;
 

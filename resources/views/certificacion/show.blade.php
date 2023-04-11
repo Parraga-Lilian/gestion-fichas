@@ -33,9 +33,7 @@
         </div>
         <div>
             <label for="archivo">Archivo</label>
-            <a href="{{ route('descargar.archivo', $certificacion->id) }}" class="btn btn-primary form-control" required>
-                Descargar {{ $certificacion->nombre_archivo }}
-            </a>
+            <input type="file" name="archivo" value="{{$certificacion->archivo}}" class="form-control" readonly />
         </div>
         <input class="btn btn-success mt-2 form-control" type="submit" value="Regresar"/>
     </form>

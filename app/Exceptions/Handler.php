@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Exceptions;
+
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\QueryException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -9,7 +11,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that are not reported.
      *
-     * @var array<int, class-string<Throwable>>
+     * @var array
      */
     protected $dontReport = [
         //
@@ -18,7 +20,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $dontFlash = [
         'current_password',
@@ -38,4 +40,22 @@ class Handler extends ExceptionHandler
         });
     }
 
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof QueryException && $exception->errorInfo[1] == 1045) {
+            // Render a custom view for the exception
+            return response()->view('errors.noaccess', ['exception' => $exception], 500);
+        }
+
+        return parent::render($request, $exception);
+    }
 }

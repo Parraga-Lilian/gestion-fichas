@@ -14,7 +14,7 @@
             <input type="hidden" name="preguntas" class="form-control" value="{{ $evaluacion->preguntas }}" />
         </div>
         <div>
-            <label for="respuestas">Respuestas: value="{{ $evaluacion->respuestas }}</label>
+            <label for="respuestas">Respuestas: {{ $evaluacion->respuestas }}</label>
         </div>
         <div>
             <label for="maximo">Maximo: {{ $evaluacion->maximo }}</label>

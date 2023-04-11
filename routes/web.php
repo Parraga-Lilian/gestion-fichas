@@ -12,6 +12,7 @@ use App\Http\Controllers\NegocioController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EvaluacionController;
+use App\Http\Controllers\EstadisticasController;
 use App\Http\Controllers\CertificacionesController;
 use App\Http\Controllers\CursosRealizadosController;
 /*
@@ -39,6 +40,7 @@ Route::post('/action-register', [RegisterController::class, 'register']); */
 Route::get('cursos/{id}/descargar', [ArchivoController::class, 'descargarCurso'])->name('descargar.archivo2');
 Route::get('certificaciones/{id}/descargar', [ArchivoController::class, 'descargarCertificacion'])->name('descargar.archivo');
 Route::get('evalrendir/{id}', [EvaluacionController::class, 'rendirEvaluacion'])->name('evaluacion.rendir');
+Route::get('/estadisticas', [EstadisticasController::class, 'index'])->name('estadisticas.index');
 
 Route::resource('documento',DocumentoController::class)->names('documento');
 

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
   integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{asset('css/login.css')}}" />
 </head>
@@ -39,7 +39,15 @@
                                         <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                                     @endif
                                 </div>
-                        
+
+                                <div class="form-group form-floating mb-3">
+                                    <label for="floatingName">Cedula:</label>
+                                    <input type="text" class="form-control" name="cedula" value="{{ old('cedula') }}" placeholder="" required="required" autofocus>
+                                    @if ($errors->has('cedula'))
+                                        <span class="text-danger text-left">{{ $errors->first('cedula') }}</span>
+                                    @endif
+                                </div>
+
                                 <div class="form-group form-floating mb-3">
                                     <label for="floatingName">Nombre de usuario:</label>
                                     <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="" required="required" autofocus>
@@ -47,7 +55,7 @@
                                         <span class="text-danger text-left">{{ $errors->first('username') }}</span>
                                     @endif
                                 </div>
-                                
+
                                 <div class="form-group form-floating mb-3">
                                     <label for="floatingPassword">Contraseña:</label>
                                     <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="" required="required">
@@ -55,7 +63,7 @@
                                         <span class="text-danger text-left">{{ $errors->first('password') }}</span>
                                     @endif
                                 </div>
-                        
+
                                 <div class="form-group form-floating mb-3">
                                     <label for="floatingConfirmPassword">Confirmar Contraseña:</label>
                                     <input type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="" required="required">
@@ -63,7 +71,7 @@
                                         <span class="text-danger text-left">{{ $errors->first('password_confirmation') }}</span>
                                     @endif
                                 </div>
-                        
+
                                 <div class="form-group form-floating mb-3">
                                     <label for="floatingConfirmPassword">Tipo de usuario: </label>
                                     <select class="form-select" aria-label="Default select example" name="tipo">
@@ -73,10 +81,10 @@
                                         @else
                                             <option value="empleado" selected>Empleado</option>
                                         @endif
-                                        
+
                                     </select>
                                 </div>
-                               
+
                                 <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
                                 <div class="bottom text-center mb-2">
                                     <p class="sm-text mx-auto mb-3"><a class="btn btn-white ml-2" href="/login">Regresar.</a></p>
@@ -89,8 +97,8 @@
                 <div class="card card2">
                     <div class="my-auto mx-md-5 px-md-5 right">
                         <h3 class="text-white">Somos más que solo un programa</h3>
-                        <small class="text-white">Permitimos a las personas centrarse más en su trabajo y 
-                            dedicar menos tiempo en el registro de información que de otra forma 
+                        <small class="text-white">Permitimos a las personas centrarse más en su trabajo y
+                            dedicar menos tiempo en el registro de información que de otra forma
                             sería complejo de almanacenar y gestionar en general.</small>
                     </div>
                 </div>
