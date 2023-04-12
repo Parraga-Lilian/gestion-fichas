@@ -32,7 +32,7 @@
              <input id="evnpreguntas" name="npreguntas" type="hidden" value="" />
              <input id="evmaximo" name="maximo" type="hidden" value="10" />
              <input id="evestado" name="estado" type="hidden" value="activo" />
-             <!-- End -->
+
             <input id="btnvalidarpregunta" class="btn btn-success my-3" type="button"
             onclick="validarPreguntas()" value="Validar Preguntas" />
             <input id="btnguardarpregunta" style="display:none;" class="btn btn-success my-3"
@@ -40,7 +40,6 @@
         </form>
     </div>
     <div id="preguntas-container">
-    <!-- Aquí se agregarán las preguntas -->
     </div>
     <button class="btn btn-primary my-3" onclick="agregarPregunta()">Agregar pregunta +</button>
 </div>
