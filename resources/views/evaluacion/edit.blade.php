@@ -10,7 +10,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Edit evaluacion</h1>
+    <h1>Editar evaluacion</h1>
 </body>
 </html>
 @endsection
