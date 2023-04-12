@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 @section('contenido')
-<h2>Editar datos de Empleado</h2>
+<h2>Editar datos de Empleado </h2>
 <!DOCTYPE html>
 <html lang="en">
 <head>
