@@ -115,4 +115,11 @@ class CursosRealizadosController extends Controller
         $curso->delete();
         return redirect()->route('curso.index');
     }
+
+    public function buscarcurso(Request $request){
+        $nombreCurso = $request->input('nombre');
+        // Filtrar las certificaciones según el nombre del certificado
+        $cursos = CursosRealizados::where('nombre', 'LIKE', '%'.$nombreCurso.'%')->get();
+        return view('curso.buscar', compact('cursos'));
+    }
 }

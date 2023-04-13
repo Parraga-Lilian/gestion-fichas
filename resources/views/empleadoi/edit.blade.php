@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 @section('contenido')
-<h2>Editar datos de Empleado</h2>
+<h4>Editar datos de Empleado</h4>
 <form action="{{route('empleadoi.update', $empleadoi)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

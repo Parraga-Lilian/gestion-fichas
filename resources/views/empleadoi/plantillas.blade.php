@@ -1,6 +1,6 @@
 @extends('layouts.sidebar-empleado')
 @section('contenido')
-<h1>Plantillas de documentos</h1>
+<h4>Plantillas de documentos</h4>
 <div class="card" style="width:280px;float:left;margin-left:3%;">
     <img class="card-img-top" src="{{asset('imagenes/contrato.jpg')}}" alt="Contrato de trabajo" style="width:100%">
     <div class="card-body">
@@ -11,7 +11,7 @@
 
     <a href="../plantillas/ct-indefinido-001.pdf" class="btn btn-danger form-control mt-1" download>
     <object data="{{asset('imagenes/pdffile.svg')}}"> </object>Bajar PDF</a>
-    
+
     <a onclick='window.open("../plantillas/ct-indefinido-001.pdf","_blank")' class="btn btn-success form-control mt-1">
         <object data="{{asset('imagenes/eye.svg')}}"> </object> Vista Previa</a>
     </div>
@@ -27,7 +27,7 @@
 
     <a href="../plantillas/solicitud-vacaciones-002.pdf" class="btn btn-danger form-control mt-1" download>
     <object data="{{asset('imagenes/pdffile.svg')}}"> </object>Bajar PDF</a>
-    
+
     <a onclick='window.open("../plantillas/solicitud-vacaciones-002.pdf","_blank")' class="btn btn-success form-control mt-1">
         <object data="{{asset('imagenes/eye.svg')}}"> </object> Vista Previa</a>
     </div>
@@ -43,7 +43,7 @@
 
     <a href="../plantillas/justificacion-003.pdf" class="btn btn-danger form-control mt-1" download>
     <object data="{{asset('imagenes/pdffile.svg')}}"> </object>Bajar PDF</a>
-    
+
     <a onclick='window.open("../plantillas/justificacion-003.pdf","_blank")' class="btn btn-success form-control mt-1">
         <object data="{{asset('imagenes/eye.svg')}}"> </object> Vista Previa</a>
     </div>

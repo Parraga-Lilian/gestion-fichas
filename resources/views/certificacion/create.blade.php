@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 @section('contenido')
-    <h2>Ingreso de certificacion</h2>
+    <h4>Ingreso de certificacion</h4>
     <form action="{{route('certificacion.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
     <input type="hidden" name="idUser" value="{{ auth()->user()->idUser }}">

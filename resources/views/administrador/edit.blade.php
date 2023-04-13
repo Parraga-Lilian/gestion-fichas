@@ -1,8 +1,8 @@
 @extends('layouts.plantilla')
 @section('contenido')
 @auth
-<h2>Editar datos de Administrador</h2>
-<form action="{{route('administrador.update', $administrador->idAdministrador)}}" 
+<h4>Editar datos de Administrador</h4>
+<form action="{{route('administrador.update', $administrador->idAdministrador)}}"
         method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -51,6 +51,6 @@
 </script>
 @endauth
 @guest
-    
+
 @endguest
-@endsection   
+@endsection

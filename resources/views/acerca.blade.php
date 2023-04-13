@@ -1,6 +1,6 @@
 @extends('layouts.sidebar-admin')
 @section('contenido')
-    <h2>Acerca de:</h2>
+    <h4>Acerca de:</h4>
     <fieldset>
         <h4> <u>Mi perfil: </u>visualizacion de informacion de administrador</h4>
         <h4><u>Usuarios: </u>Usuarios del sistema</h4>

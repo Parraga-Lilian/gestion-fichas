@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 @section('contenido')
-    <h2>Modificación de certificacion</h2>
+    <h4>Modificación de certificacion</h4>
     <form action="{{route('certificacion.update',$certificacion->idCertificaciones)}}"
         method="POST" enctype="multipart/form-data">
         @csrf

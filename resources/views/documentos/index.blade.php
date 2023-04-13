@@ -1,6 +1,6 @@
 @extends('layouts.sidebar-admin')
 @section('contenido')
-<h2>Gestion de documentos</h2>
+<h4>Gestion de documentos</h4>
 @auth
     <div>
         <a class="btn btn-success" href="{{route('documento.create')}}">Agregar documento +</a>

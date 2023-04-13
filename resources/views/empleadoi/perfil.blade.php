@@ -1,6 +1,6 @@
 @extends('layouts.sidebar-admin')
 @section('contenido')
-<h1>Perfil de empleado</h1>
+<h4>Perfil de empleado</h4>
     @auth
         <section style="background-color: #eee;">
           <div class="container py-5">
@@ -10,7 +10,7 @@
                   <div class="card-body text-center">
                     <!--Foto-->
                     <img src="{{ asset('storage'.'/'.$empleado->Foto) }}" alt="">
-                    
+
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                       class="rounded-circle img-fluid" style="width: 150px;">
 
@@ -19,7 +19,7 @@
                     <p class="text-muted mb-1">Cédula: {{ $empleado->cedula }}</p>
                     <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
                     <div class="d-flex justify-content-center mb-2">
-                      <a type="button" class="btn btn-primary" class="btn btn-warning" 
+                      <a type="button" class="btn btn-primary" class="btn btn-warning"
                       href="{{route('empleado.edit',$empleado->idempleado)}}">Editar</a>
                     </div>
                   </div>

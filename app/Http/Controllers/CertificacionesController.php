@@ -111,4 +111,15 @@ class CertificacionesController extends Controller
         $certificacion->delete();
         return redirect()->route('certificacion.index');
     }
+
+    public function buscarcertificacion(Request $request)
+    {
+        $nombreCertificado = $request->input('nombre');
+
+        // Filtrar las certificaciones según el nombre del certificado
+        $certificaciones = Certificacion::where('nombre', 'LIKE', '%'.$nombreCertificado.'%')->get();
+
+        return view('certificacion.buscar', compact('certificaciones'));
+    }
+
 }

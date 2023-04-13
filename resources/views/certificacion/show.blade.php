@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 @section('contenido')
-    <h2>Muestra de certificaciones</h2>
+    <h4>Muestra de certificaciones</h4>
     <form action="{{route('certificacion.index')}}">
         @csrf
         <div>

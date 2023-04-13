@@ -3,7 +3,7 @@
 @endphp
 @extends($layout)
 @section('contenido')
-<h2>Gestion de cursos realizados</h2>
+<h4>Gestion de cursos realizados</h4>
 @auth
     <div>
         <a class="btn btn-success" href="{{route('curso.create')}}">Agregar curso +</a>

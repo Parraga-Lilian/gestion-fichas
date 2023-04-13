@@ -65,6 +65,9 @@ Route::get('/acerca',function(){
 //Route::get('/empleadoi/{id}/', [EmpleadoController::class, 'empleadoIEditar'])->name('empleadoi.edit');
 //Route::get('/empleadoi', [EmpleadoController::class, 'empleadoIIndex'])->name('empleadoi.index');
 //Route::get('/empleadoi/{var}', [EmpleadoController::class, 'soloindice'])->name('empleadoi.index');
+Route::get('/certificacionbuscar', [CertificacionesController::class, 'buscarcertificacion'])->name('certificacionbuscar');
+Route::get('/cursobuscar', [CursosRealizadosController::class, 'buscarcurso'])->name('cursobuscar');
+
 Route::get('/empleadoinegocio', [EmpleadoIController::class, 'mostrarNegocio']);
 Route::get('/empleadoiplantillas', [EmpleadoIController::class, 'mostrarPlantillas']);
 Route::get('/empleadoiacerca', [EmpleadoIController::class, 'mostrarAcerca']);

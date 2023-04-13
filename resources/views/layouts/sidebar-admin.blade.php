@@ -111,17 +111,29 @@ body {
                         Negocio
                     </a>
                 </li>
-                <li>
-                    <a href="/curso">
-                        <i class="fas fa-graduation-cap"></i>
-                        Cursos Realizados
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"
+                    id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                     <i class="fas fa-graduation-cap"></i>
+                      Curso
                     </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="/curso">Mis cursos</a>
+                      <a class="dropdown-item" href="/cursobuscar">Buscar cursos</a>
+                    </div>
                 </li>
-                <li>
-                    <a href="/certificacion">
-                        <i class="fas fa-certificate"></i>
-                        Certificaciones
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"
+                    id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-certificate"></i>
+                      Certificaciones
                     </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="/certificacion">Mis certif.</a>
+                      <a class="dropdown-item" href="/certificacionbuscar">Buscar certif.</a>
+                    </div>
                 </li>
                 <li>
                     <a href="/evaluacion">

@@ -1,10 +1,10 @@
 @extends('layouts.sidebar-admin')
 @section('contenido')
-<h1>Perfil de administrador</h1>
+<h4>Perfil de administrador</h4>
     @auth
       @if(is_null($administrador))
         <strong>No has ingresado. </strong>
-        <a href="/logout">Login</a> 
+        <a href="/logout">Login</a>
       @else
           <section style="background-color: #eee;">
             <div class="container py-5">
@@ -13,10 +13,10 @@
                   <div class="card mb-4">
                     <div class="card-body text-center">
                       @if (empty($administrador->Foto))
-                          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" 
+                          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                           alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                         @else
-                          <img src="{{ asset('storage').'/'.$administrador->Foto}}" alt="avatar" 
+                          <img src="{{ asset('storage').'/'.$administrador->Foto}}" alt="avatar"
                           class="rounded-circle img-fluid" style="width: 150px;">
                         @endif
                       <h5 class="my-3">{{auth()->user()->username ?? auth()->user()->name}}</h5>
@@ -24,7 +24,7 @@
                       <p class="text-muted mb-2">F. Ingreso: {{auth()->user()->created_at->toDateString() ?? "" }}</p>
                       <p class="text-muted mb-2">Actualizado: {{auth()->user()->updated_at->toDateString() ?? "" }}</p>
                       <div class="d-flex justify-content-center mb-2">
-                        <a type="button" class="btn btn-primary" class="btn btn-warning" 
+                        <a type="button" class="btn btn-primary" class="btn btn-warning"
                         href="{{route('administrador.edit',$administrador->idAdministrador)}}">Editar perfil</a>
                       </div>
                     </div>
@@ -59,7 +59,7 @@
                           <p class="text-muted mb-0">{{$administrador->direccion ?? ""}}</p>
                         </div>
                       </div>
-                      
+
                       <hr>
                       <div class="row">
                         <div class="col-sm-3">
@@ -78,13 +78,13 @@
                           <p class="text-muted mb-0">{{ $administrador->especialidad ?? "" }}</p>
                         </div>
                       </div>
-                     
+
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </section>  
+          </section>
       @endif
     @endauth
 <script>

@@ -24,40 +24,40 @@
             bottom: 0;
             width: 200px;
         }
-    
+
         #sidebar .sidebar-header {
             background: #18742e;
         }
-    
+
         #sidebar ul li a:hover {
             color: #a0af5f;
             background: #fff;
         }
-    
+
         #sidebar ul li a i {
             margin-right: 10px;
         }
-    
+
         #sidebar ul li.active>a,
         a[aria-expanded="true"] {
             color: #fff;
             background: #a0af5f;
         }
-    
+
         ul ul a {
             font-size: 0.9em !important;
             padding-left: 30px !important;
             background: #a0af5f;
         }
-    
+
         body {
             padding-left: 200px;
         }
-    
+
         #content {
             margin-left: 50px; /* Ancho de la sidebar */
         }
-    
+
         @media (max-width: 768px) {
             #content {
                 margin-left: 0;
@@ -77,7 +77,7 @@
                     No has ingresado. <a href="/logout">Login</a>
                 @else
                     <i>{{ auth()->user()->name ?? auth()->user()->email  }}</i>
-                @endif  
+                @endif
             </div>
             <ul class="list-unstyled components">
                 <li>

@@ -1,6 +1,6 @@
 @extends('layouts.sidebar-admin')
 @section('contenido')
-<h2>Gestion de empleados</h2>
+<h4>Gestion de empleados</h4>
 <?php use App\Models\User; ?>
 @auth
     <div>
@@ -12,8 +12,16 @@
             <th>USER</th>
             <th>FOTO</th>
             <th>CEDULA</th>
-            <th>NOMBRES</th>
-            <th>APELLIDOS</th>
+            <th>
+                <a href="{{ route('empleado.index', ['order' => 'nombres']) }}">
+                    NOMBRES
+                </a>
+            </th>
+            <th>
+                <a href="{{ route('empleado.index', ['order' => 'apellidos']) }}">
+                    APELLIDOS
+                </a>
+            </th>
             <th>DIRECCION</th>
             <th>TELEFONO</th>
             <th>CARGO</th>

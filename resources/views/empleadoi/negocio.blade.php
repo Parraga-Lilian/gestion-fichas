@@ -2,7 +2,7 @@
 @section('contenido')
 <?php use App\Models\Empleado; ?>
 
-<h2>Información del negocio</h2>
+<h4>Información del negocio</h4>
 @auth
     @if (!is_null($negocio))
         <form action="#" method="POST" >
@@ -18,7 +18,7 @@
             <div>
                 <label for="actividad">Actividad: </label>
                 <input type="text" name="actividad" class="form-control" value="{{ $negocio->actividad }}" readonly />
-            </div>      
+            </div>
             <div>
                 <label for="n_empleados">Número de empleados activos: </label>
                 <input type="text" name="n_empleados" class="form-control" value="{{ count(Empleado::where('estado','activo')->get()) ?? 0 }}" readonly />
