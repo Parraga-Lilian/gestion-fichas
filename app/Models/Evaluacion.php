@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Evaluacion extends Model
 {
     use HasFactory;
-    protected $table = 'Evaluacion';
+    protected $table = 'evaluacion';
     public $timestamps = false;
     protected $primaryKey = 'idEvaluacion';
     protected $fillable = ['idEvaluacion','idUser','nusuario','codigo','nombre','descripcion','preguntas',
@@ -16,7 +16,8 @@ class Evaluacion extends Model
 
     public static function obtenerPromedioPuntaje()
     {
-        return self::avg('puntajeobtenido');
+        $promedio = self::avg('puntajeobtenido');
+        return number_format($promedio, 2);
     }
 
     public static function obtenerMaximoPuntaje()

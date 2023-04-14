@@ -96,7 +96,6 @@
     </table>
  @else
     @php
-        $evaluacionesAll = Evaluacion::where('estado','rendido')->where('estado','activo');
         $evaluacionesRendidas = Evaluacion::where([['estado','=' ,'rendido'],
         ['idUser','=',auth()->user()->idUser]])->get();
         $evaluacionesActivas = Evaluacion::where([
@@ -154,8 +153,8 @@
         } else {
             valor = 5;
         }
-        const list = document.getElementsByTagName("LI")[valor];
-        list.className += " active";
+        const listaop = document.getElementsByTagName("LI")[valor];
+        listaop.className += " active";
         var form = document.getElementById('idForm');
         if(form != null){
             form.addEventListener('submit',function(event){

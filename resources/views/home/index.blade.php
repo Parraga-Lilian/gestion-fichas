@@ -5,7 +5,7 @@
         @auth
             <h1>Dashboard</h1>
             <p class="lead">Solo usuarios autenticados pueden ver esta seccion.</p>
-            <a class="btn btn-lg btn-primary" href="https://codeanddeploy.com" 
+            <a class="btn btn-lg btn-primary" href="https://codeanddeploy.com"
             role="button">Ir al sistema &raquo;</a>
         @endauth
 

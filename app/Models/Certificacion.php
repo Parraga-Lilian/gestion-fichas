@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Certificacion extends Model
 {
     use HasFactory;
-    protected $table = 'Certificacion';
+    protected $table = 'certificacion';
     protected $primaryKey = 'idCertificaciones';
     protected $fillable = ['idCertificaciones','idUser','nombre',
     'institucion','fechacomienzo','fechafin','tipo','archivo'];

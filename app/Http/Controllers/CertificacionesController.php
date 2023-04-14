@@ -121,5 +121,4 @@ class CertificacionesController extends Controller
 
         return view('certificacion.buscar', compact('certificaciones'));
     }
-
 }
